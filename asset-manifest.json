@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/pantry-hero-fe/static/css/main.1aa3f63c.chunk.css",
-    "main.js": "/pantry-hero-fe/static/js/main.89ba4ab5.chunk.js",
-    "main.js.map": "/pantry-hero-fe/static/js/main.89ba4ab5.chunk.js.map",
-    "runtime-main.js": "/pantry-hero-fe/static/js/runtime-main.98c0a651.js",
-    "runtime-main.js.map": "/pantry-hero-fe/static/js/runtime-main.98c0a651.js.map",
-    "static/css/2.11b452ed.chunk.css": "/pantry-hero-fe/static/css/2.11b452ed.chunk.css",
-    "static/js/2.073964ca.chunk.js": "/pantry-hero-fe/static/js/2.073964ca.chunk.js",
-    "static/js/2.073964ca.chunk.js.map": "/pantry-hero-fe/static/js/2.073964ca.chunk.js.map",
-    "index.html": "/pantry-hero-fe/index.html",
-    "precache-manifest.67b69927d76cccba47cff0bc18cb30ce.js": "/pantry-hero-fe/precache-manifest.67b69927d76cccba47cff0bc18cb30ce.js",
-    "service-worker.js": "/pantry-hero-fe/service-worker.js",
-    "static/css/2.11b452ed.chunk.css.map": "/pantry-hero-fe/static/css/2.11b452ed.chunk.css.map",
-    "static/css/main.1aa3f63c.chunk.css.map": "/pantry-hero-fe/static/css/main.1aa3f63c.chunk.css.map",
-    "static/js/2.073964ca.chunk.js.LICENSE.txt": "/pantry-hero-fe/static/js/2.073964ca.chunk.js.LICENSE.txt",
-    "static/media/loading.svg": "/pantry-hero-fe/static/media/loading.c5590569.svg",
-    "static/media/logo.svg": "/pantry-hero-fe/static/media/logo.5d5d9eef.svg"
+    "main.css": "/static/css/main.1aa3f63c.chunk.css",
+    "main.js": "/static/js/main.f682c1e2.chunk.js",
+    "main.js.map": "/static/js/main.f682c1e2.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.37a9e58e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.37a9e58e.js.map",
+    "static/css/2.11b452ed.chunk.css": "/static/css/2.11b452ed.chunk.css",
+    "static/js/2.073964ca.chunk.js": "/static/js/2.073964ca.chunk.js",
+    "static/js/2.073964ca.chunk.js.map": "/static/js/2.073964ca.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.bc36ecf5b912bc69075b43cfdeaa6db6.js": "/precache-manifest.bc36ecf5b912bc69075b43cfdeaa6db6.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.11b452ed.chunk.css.map": "/static/css/2.11b452ed.chunk.css.map",
+    "static/css/main.1aa3f63c.chunk.css.map": "/static/css/main.1aa3f63c.chunk.css.map",
+    "static/js/2.073964ca.chunk.js.LICENSE.txt": "/static/js/2.073964ca.chunk.js.LICENSE.txt",
+    "static/media/loading.svg": "/static/media/loading.c5590569.svg",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.98c0a651.js",
+    "static/js/runtime-main.37a9e58e.js",
     "static/css/2.11b452ed.chunk.css",
     "static/js/2.073964ca.chunk.js",
     "static/css/main.1aa3f63c.chunk.css",
-    "static/js/main.89ba4ab5.chunk.js"
+    "static/js/main.f682c1e2.chunk.js"
   ]
 }
