@@ -6,6 +6,12 @@ import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
 import config from "./auth_config.json";
 import history from "./utils/history";
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import allReducers from './reducers';
+
+const reduxStore = createStore(allReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -23,7 +29,9 @@ ReactDOM.render(
     redirectUri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
   >
-    <App />
+    <Provider store={reduxStore}>
+      <App />
+    </Provider>
   </Auth0Provider>,
   document.getElementById("root")
 );
