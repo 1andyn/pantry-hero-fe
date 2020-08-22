@@ -1,3 +1,4 @@
 import pantryActions from './pantry'
+import displayActions from './display'
 
-export default pantryActions;
+export default {displayActions, pantryActions};

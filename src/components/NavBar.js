@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import displayActions from '../actions'
 
 import {
   Collapse,
@@ -18,6 +19,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth0 } from "@auth0/auth0-react";
 
 const NavBar = () => {
@@ -35,6 +37,14 @@ const NavBar = () => {
       returnTo: window.location.origin,
     });
 
+  //bind function calls to use dispatch to change state
+  const dispatch = useDispatch();
+  const selPantry = () => dispatch(displayActions.displayActions.showPantry())
+  const selMain = () => dispatch(displayActions.displayActions.showMain())
+
+  //get display state
+  const display = useSelector(state => state.display);
+
   return (
     <div className="nav-container">
       <Navbar color="light" light expand="md">
@@ -48,11 +58,23 @@ const NavBar = () => {
                   tag={RouterNavLink}
                   to="/"
                   exact
-                  activeClassName="router-link-exact-active"
+                  activeClassName={display===0?"router-link-exact-active":""}
+                  onClick={() => selMain()}
                 >
                   Home
                 </NavLink>
               </NavItem>
+              {isAuthenticated && (<NavItem>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/"
+                  exact
+                  activeClassName={display===1?"router-link-exact-active":""}
+                  onClick={() => selPantry()}
+                >
+                  Pantry
+                </NavLink>
+              </NavItem>)}
             </Nav>
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
