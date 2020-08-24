@@ -8,10 +8,8 @@ const display = (state = 0, action) => {
             state = 1;
             return state;
         }
-        default: {
-            state = 0;
-            return state; //do nothing return pantry
-        }
+        default:
+            return state
     }
 }
 
