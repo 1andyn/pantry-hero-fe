@@ -89,7 +89,7 @@ const Pantry = () => {
                 Add Test Data
             </Button>
             <br></br>
-            <Paper className={classes.root}>
+            <Paper className={classes.root + " mt-3"}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
