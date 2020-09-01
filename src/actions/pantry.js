@@ -1,18 +1,18 @@
-function setIngredients(items) {
+export function setIngredients(items) {
     return {
-        type: "ADD",
+        type: "SET",
         state: items,
     };
 }
 
-function addIngredient(item) {
+export function addIngredient(item) {
     return {
         type: "ADD",
         pantry_item: item,
     };
 }
 
-function delIngredient(index) {
+export function delIngredient(index) {
     /* May want to do search logic in here which will change parameters*/
     return {
         type: "DEL",
@@ -20,4 +20,4 @@ function delIngredient(index) {
     };
 }
 
-export default { addIngredient, delIngredient };
+export default { setIngredients, addIngredient, delIngredient };
