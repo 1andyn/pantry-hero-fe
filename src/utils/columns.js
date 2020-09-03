@@ -1,8 +1,4 @@
-import {
-    createColumn,
-    ColumnDataType,
-    ColumnSortDirection,
-} from "tubular-common";
+import { createColumn, ColumnDataType } from "tubular-common";
 
 const columns = [
     createColumn("ingredient_id", {
