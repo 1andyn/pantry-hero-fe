@@ -4,15 +4,17 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { Button, Paper, Tabs, Tab } from "@material-ui/core/";
 
-import { DataGrid } from "tubular-react";
+import { DataGrid } from "@material-ui/data-grid";
 import columns from "../utils/columns";
-import Modal from "react-bootstrap/Modal";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
+
+//import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-import { addIngredient, setIngredients } from "../actions/pantry.js";
+import pantry, { addIngredient, setIngredients } from "../actions/pantry.js";
+import Ingredient from "./Ingredient";
+
+let temp_id_counter = -1;
 
 const Pantry = () => {
     const { user } = useAuth0();
@@ -30,6 +32,7 @@ const Pantry = () => {
     const addTestData = () => {
         dispatch(
             addIngredient({
+                ingredient_id: 1,
                 user_id: "joesavold",
                 type: "Tomatoes",
                 quantity: 4,
@@ -41,6 +44,7 @@ const Pantry = () => {
         );
         dispatch(
             addIngredient({
+                ingredient_id: 2,
                 user_id: "joesavold",
                 type: "Ice Cream",
                 quantity: 4,
@@ -52,6 +56,7 @@ const Pantry = () => {
         );
         dispatch(
             addIngredient({
+                ingredient_id: 3,
                 user_id: "joesavold",
                 type: "Fruity Pebbles",
                 quantity: 1,
@@ -64,28 +69,44 @@ const Pantry = () => {
     };
 
     const PantryDisplay = () => (
-        <DataGrid columns={columns} dataSource={pantry_data} gridName="Grid" />
+        <div style={{height: 250}}>
+            <DataGrid columns={columns} rows={pantry_data} getRowId={(row) => row.ingredient_id} gridName="Grid" />
+        </div>
     );
 
     const classes = useStyles();
-    const [value, setValue] = useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
+    
     useEffect(() => {
-        fetch("http://34.94.216.208:5000/ingredients/get/" + user.nickname)
+        fetch("https://pdrdxhogtd.execute-api.us-west-2.amazonaws.com/prod/ingredients")
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
-                dispatch(setIngredients(data));
+                let ingredients = data.ingredients;
+                console.log(ingredients)
+                ingredients.forEach(i => {
+                    if ('purchase_date' in i) i.purchase_date = new Date(i.purchase_date);
+                    if ('expiration_date' in i) i.expiration_date = new Date(i.expiration_date);
+                });
+                dispatch(setIngredients(ingredients));
             })
             .catch(console.log);
-    }, [value]);
+    }, [dispatch, user.nickname]);
 
     const [show, setShow] = React.useState(false);
     const handleClose = () => setShow(false);
+    const handleAdd = (ingredient) => {
+        console.log(ingredient);
+        const temp_id = temp_id_counter--;
+        // const requestOptions = {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(ingredient)
+        // }
+        ingredient.ingredient_id = temp_id;
+        dispatch(addIngredient(ingredient));
+        setShow(false);
+        // fetch("https://pdrdxhogtd.execute-api.us-west-2.amazonaws.com/prod/ingredients", requestOptions)
+        //     .then(data => console.log(data));
+    }
     const handleShow = () => setShow(true);
 
     return (
@@ -102,83 +123,9 @@ const Pantry = () => {
                 Add Ingredient
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add Ingredient</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <InputGroup className="mb-3">
-                        <FormControl
-                            placeholder="Ingredient Type"
-                            aria-label="Ingredient Type"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        <FormControl
-                            placeholder="Quantity"
-                            aria-label="Quantity"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        <FormControl
-                            placeholder="Unit"
-                            aria-label="Unit"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        <FormControl
-                            placeholder="Date Purchased"
-                            aria-label="Date Purchased"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        <FormControl
-                            placeholder="Expiration Date"
-                            aria-label="Expiration Date"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                        <FormControl
-                            placeholder="Location"
-                            aria-label="Location"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="contained" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleClose}
-                    >
-                        Add
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <Ingredient onClose={handleClose} show={show} onAdd={handleAdd}/>
 
             <br></br>
-            <Paper className={classes.root + " mt-3"}>
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                >
-                    <Tab label="General" />
-                    <Tab label="Pantry" />
-                    <Tab label="Fridge" />
-                    <Tab label="Freezer" />
-                </Tabs>
-            </Paper>
             <PantryDisplay />
         </div>
     );

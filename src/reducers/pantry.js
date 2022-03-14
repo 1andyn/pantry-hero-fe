@@ -1,10 +1,10 @@
 const pantryReducer = (state = [], action) => {
     switch (action.type) {
         case "SET": {
-            console.log(action.state);
             return action.state;
         }
         case "ADD": {
+            console.log("ACTION: ", action);
             return [...state, action.pantry_item];
         }
         case "DEL": {
